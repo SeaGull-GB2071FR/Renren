@@ -9,11 +9,11 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.44.135:8848
-#    alicloud:
-#      access-key: LTAI5tBPqoroToQNyrHpYJLR
-#      secret-key: 3GnWaRhcBW3gUDhNSVr23fSrM6A0Q4
-#      oss:
-#        endpoint: oss-cn-guangzhou.aliyuncs.com
+    alicloud:
+      access-key: LTAI5tQc3FY99jkxVC6nVUAT
+      secret-key: SpyvsWAFPkxtozIYTDdT7cMazjhGKE
+      oss:
+        endpoint: oss-cn-guangzhou.aliyuncs.com
   application:
     name: mall-product
 

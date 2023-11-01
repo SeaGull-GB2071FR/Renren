@@ -1,0 +1,16 @@
+# 数据库的连接新
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.44.135:8848
+    alicloud:
+      access-key: LTAI5tQc3FY99jkxVC6nVUAT
+      secret-key: SpyvsWAFPkxtozIYTDdT7cMazjhGKE
+      oss:
+        endpoint: oss-cn-guangzhou.aliyuncs.com
+        bucket: gb2071fr
+    application:
+      name: mall-third
+server:
+  port: 8090

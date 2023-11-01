@@ -22,7 +22,7 @@ public class ExceptionControllerAdvice {
      * @param e
      */
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public R handlerValidExecption(MethodArgumentNotValidException e){
+    public R handlerValidException(MethodArgumentNotValidException e){
         Map<String,String> map = new HashMap<>();
         e.getFieldErrors().forEach((fieldError)->{
             map.put(fieldError.getField(),fieldError.getDefaultMessage());
@@ -38,7 +38,7 @@ public class ExceptionControllerAdvice {
      * @return
      */
     @ExceptionHandler(Throwable.class)
-    public R handlerExecption(Throwable throwable){
+    public R handlerException(Throwable throwable){
         log.error("错误信息：",throwable);
         //return R.error(400,"未知异常信息").put("data",throwable.getMessage());
         return R.error(BizCodeEnume.UNKNOW_EXCEPTION.getCode(), BizCodeEnume.UNKNOW_EXCEPTION.getMsg())
