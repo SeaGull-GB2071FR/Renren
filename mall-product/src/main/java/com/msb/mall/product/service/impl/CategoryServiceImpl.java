@@ -3,6 +3,8 @@ package com.msb.mall.product.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -68,6 +70,34 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         // 2.批量逻辑删除操作
         baseMapper.deleteBatchIds(ids);
 
+    }
+
+
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        List<Long> paths = new ArrayList<>();
+        List<Long> parentPath = findParentPath(catelogId, paths);
+        Collections.reverse(parentPath);
+        return parentPath.toArray(new Long[parentPath.size()]);
+
+    }
+
+    /**
+     * 查询父类节点
+     * 集合按顺序存放子节点 - > 父节点
+     *
+     * @param catelogId
+     * @param paths
+     * @return
+     */
+    public List<Long> findParentPath(Long catelogId, List<Long> paths) {
+        paths.add(catelogId);
+        CategoryEntity categoryEntity = this.getById(catelogId);
+        if (categoryEntity.getParentCid() != 0) {
+            findParentPath(categoryEntity.getCatId(),paths);
+        }
+
+        return paths;
     }
 
 
