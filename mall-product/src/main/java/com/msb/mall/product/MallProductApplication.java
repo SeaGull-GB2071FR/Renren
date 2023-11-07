@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @EnableFeignClients(basePackages = "com.msb.mall.product.feign")
@@ -15,6 +16,8 @@ import org.springframework.context.annotation.ComponentScan;
 // 指定Mapper接口对应的路径
 @MapperScan("com.msb.mall.product.dao")
 @ComponentScan(basePackages = "com.msb")
+@CrossOrigin(origins = "http://localhost:8001")
+
 public class MallProductApplication {
 
     public static void main(String[] args) {

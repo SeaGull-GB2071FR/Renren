@@ -2,6 +2,7 @@
   * Copyright 2022 json.cn 
   */
 package com.msb.mall.product.vo;
+import com.msb.common.dto.MemberPrice;
 import lombok.Data;
 
 import java.math.BigDecimal;

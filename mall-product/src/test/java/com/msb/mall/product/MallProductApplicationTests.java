@@ -35,7 +35,7 @@ public class MallProductApplicationTests {
         // 填写本地文件的完整路径。如果未指定本地路径，则默认从示例程序所属项目对应本地路径中上传文件流。
         InputStream inputStream = new FileInputStream("C:\\Users\\阿爽\\Desktop\\avatar.jpg");
         // 依次填写Bucket名称（例如examplebucket）和Object完整路径（例如exampledir/exampleobject.txt）。Object完整路径中不能包含Bucket名称。
-        ossClient.putObject("gb2071fr", "222.jpg", inputStream);
+        ossClient.putObject("gb2071fr", "422.jpg", inputStream);
 
         // 关闭OSSClient。
         ossClient.shutdown();

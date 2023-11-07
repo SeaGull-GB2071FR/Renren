@@ -41,6 +41,15 @@ public class SpuBoundsController {
         return R.ok().put("page", page);
     }
 
+    /**
+     * 保存积分信息
+     */
+    @RequestMapping("/saveBounds")
+//    @RequiresPermissions("coupon:spubounds:save")
+    public R saveBounds(@RequestBody SpuBoundsEntity spuBounds){
+        spuBoundsService.save(spuBounds);
+        return R.ok();
+    }
 
     /**
      * 信息
