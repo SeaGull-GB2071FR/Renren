@@ -13,7 +13,7 @@
     <delete id="removeBatchRelation">
         DELETE FROM pms_attr_attrgroup_relation
             <where>
-                <foreach collection="entityList" item="item" separator=" OR ">
+                <foreach collection="list" item="item" separator=" OR ">
                     (attr_id = #{item.attrId} AND attr_group_id = #{item.attrGroupId})
                 </foreach>
             </where>   

@@ -1,4 +1,13 @@
 package com.msb.mall.product.vo;
 
-public class AttrResponseVo {
+import lombok.Data;
+
+@Data
+public class AttrResponseVo extends AttrVo{
+
+    private String catelogName;
+
+    private String groupName;
+
+    private Long[] catelogPath;
 }

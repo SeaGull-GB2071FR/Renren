@@ -94,7 +94,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         paths.add(catelogId);
         CategoryEntity categoryEntity = this.getById(catelogId);
         if (categoryEntity.getParentCid() != 0) {
-            findParentPath(categoryEntity.getCatId(),paths);
+            findParentPath(categoryEntity.getParentCid(),paths);
         }
 
         return paths;

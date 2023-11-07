@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.msb.common.utils.PageUtils;
 import com.msb.mall.product.entity.AttrEntity;
 import com.msb.mall.product.vo.AttrGroupRelationVo;
+import com.msb.mall.product.vo.AttrResponseVo;
+import com.msb.mall.product.vo.AttrVo;
 
 import java.util.List;
 import java.util.Map;
@@ -24,5 +26,13 @@ public interface AttrService extends IService<AttrEntity> {
     void deleteRelation(AttrGroupRelationVo[] vos);
 
     PageUtils getNoAttrRelation(Map<String, Object> params, Long attrgroupId);
-}
+
+    void saveAttr(AttrVo vo);
+
+    PageUtils queryBasePage(Map<String, Object> params, Long catelogId);
+
+    AttrResponseVo getAttrInfo(Long attrId);
+
+    void updateBaseAttr(AttrVo attr);
+    }
 
