@@ -9,6 +9,7 @@ import com.msb.mall.product.service.AttrAttrgroupRelationService;
 import com.msb.mall.product.service.AttrService;
 import com.msb.mall.product.service.CategoryService;
 import com.msb.mall.product.vo.AttrGroupRelationVo;
+import com.msb.mall.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,8 @@ import com.msb.common.utils.R;
 /**
  * 属性分组
  *
- * @author dpb
- * @email dengpbs@163.com
+ * @author GB2071FR
+ * @email 1184800897@qq.com
  * @date 2023-10-30 17:10:05
  */
 @RestController
@@ -40,6 +41,19 @@ public class AttrGroupController {
 
     @Autowired
     private AttrAttrgroupRelationService relationService;
+
+
+    /**
+     *
+     */
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrgroupWithAttrs(@PathVariable("catelogId") Long catelogId){
+        List<AttrGroupWithAttrsVo> list = attrGroupService.getAttrgroupWithAttrsByCatelogId(catelogId);
+
+        return R.ok().put("data",list);
+
+    }
+
 
     /**
      * 取消关联

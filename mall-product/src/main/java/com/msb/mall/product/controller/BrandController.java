@@ -23,8 +23,8 @@ import javax.validation.Valid;
 /**
  * 品牌
  *
- * @author dpb
- * @email dengpbs@163.com
+ * @author GB2071FR
+ * @email 1184800897@qq.com
  * @date 2023-10-30 17:10:05
  */
 @RestController

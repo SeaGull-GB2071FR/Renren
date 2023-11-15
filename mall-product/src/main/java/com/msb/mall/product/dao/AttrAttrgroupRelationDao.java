@@ -8,9 +8,9 @@ import java.util.List;
 
 /**
  * 属性&属性分组关联
- * 
- * @author dpb
- * @email dengpbs@163.com
+ *
+ * @author GB2071FR
+ * @email 1184800897@qq.com
  * @date 2023-10-30 17:10:05
  */
 @Mapper

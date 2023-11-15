@@ -1,5 +1,8 @@
 package com.msb.mall.product.service.impl;
 
+import com.msb.mall.product.entity.SpuInfoEntity;
+import com.msb.mall.product.vo.SpuInfoVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -11,6 +14,7 @@ import com.msb.common.utils.Query;
 import com.msb.mall.product.dao.SkuInfoDao;
 import com.msb.mall.product.entity.SkuInfoEntity;
 import com.msb.mall.product.service.SkuInfoService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("skuInfoService")

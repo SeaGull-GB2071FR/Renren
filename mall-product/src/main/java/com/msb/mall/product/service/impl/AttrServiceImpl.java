@@ -76,6 +76,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
      * 1.规格参数的具体信息
      * 2.关联的属性组信息
      * 3.关联的类别信息
+     *
      * @param attrId
      * @return
      */
@@ -85,14 +86,14 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         AttrResponseVo responseVo = new AttrResponseVo();
         // 1.根据ID查询规格参数的基本信息
         AttrEntity attrEntity = this.getById(attrId);
-        BeanUtils.copyProperties(attrEntity,responseVo);
+        BeanUtils.copyProperties(attrEntity, responseVo);
         // 2.查询关联的属性组信息 中间表
         AttrAttrgroupRelationEntity relationEntity = attrAttrgroupRelationDao
                 .selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attrId));
-        if(relationEntity != null){
+        if (relationEntity != null) {
             AttrGroupEntity attrGroupEntity = attrGroupService.getById(relationEntity.getAttrGroupId());
             responseVo.setAttrGroupId(attrGroupEntity.getAttrGroupId());
-            if(attrGroupEntity != null){
+            if (attrGroupEntity != null) {
                 responseVo.setGroupName(attrGroupEntity.getAttrGroupName());
             }
         }
@@ -102,17 +103,21 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         responseVo.setCatelogPath(catelogPath);
 
         CategoryEntity categoryEntity = categoryService.getById(catelogId);
-        if(categoryEntity!=null){
+        if (categoryEntity != null) {
             responseVo.setCatelogName(categoryEntity.getName());
         }
         return responseVo;
     }
 
+    /**
+     * 修改要通过entity
+     * 更新了 加上修改中间表
+     */
     @Transactional
     @Override
     public void updateBaseAttr(AttrVo attr) {
         AttrEntity entity = new AttrEntity();
-        BeanUtils.copyProperties(attr,entity);
+        BeanUtils.copyProperties(attr, entity);
         // 1.更新基本数据
         this.updateById(entity);
         // 2.修改分组关联的关系
@@ -120,11 +125,14 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         relationEntity.setAttrId(entity.getAttrId());
         relationEntity.setAttrGroupId(attr.getAttrGroupId());
         // 判断是否存在对应的数据
-        Integer count = attrAttrgroupRelationDao.selectCount(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id",attr.getAttrId()));
-        if(count > 0){
+        // 通过attrId
+        Integer count = attrAttrgroupRelationDao.selectCount
+                (new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
+        if (count > 0) {
             // 说明有记录，直接更新
-            attrAttrgroupRelationDao.update(relationEntity,new UpdateWrapper<AttrAttrgroupRelationEntity>().eq("attr_id",attr.getAttrId()));
-        }else{
+            attrAttrgroupRelationDao.update
+                    (relationEntity, new UpdateWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr.getAttrId()));
+        } else {
             // 说明没有记录，直接插入
             attrAttrgroupRelationDao.insert(relationEntity);
         }
@@ -163,6 +171,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     /**
+     * 查询没有被关联的属性
      * @param params
      * @param attrgroupId
      * @return
@@ -229,18 +238,19 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
 
 
+    // todo 还没看懂
     @Override
     public PageUtils queryBasePage(Map<String, Object> params, Long catelogId) {
         QueryWrapper<AttrEntity> wrapper = new QueryWrapper<>();
         // 1.根据类别编号查询
-        if(catelogId != 0 ){
-            wrapper.eq("catelog_id",catelogId);
+        if (catelogId != 0) {
+            wrapper.eq("catelog_id", catelogId);
         }
         // 2.根据key 模糊查询
         String key = (String) params.get("key");
-        if(!StringUtils.isEmpty(key)){
-            wrapper.and((w)->{
-                w.eq("attr_id",key).or().like("attr_name",key);
+        if (!StringUtils.isEmpty(key)) {
+            wrapper.and((w) -> {
+                w.eq("attr_id", key).or().like("attr_name", key);
             });
         }
         // 3.分页查询
