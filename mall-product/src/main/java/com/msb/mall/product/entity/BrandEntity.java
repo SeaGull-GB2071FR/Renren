@@ -28,8 +28,8 @@ public class BrandEntity implements Serializable {
     /**
      * 品牌id
      */
-    @NotNull(message = "添加品牌信息品牌ID必须不为空",groups = {UpdateGroupsInterface.class})
-    @Null(message = "添加品牌信息品牌ID必须为空",groups = {AddGroupsInterface.class})
+//    @NotNull(message = "添加品牌信息品牌ID必须不为空",groups = {UpdateGroupsInterface.class})
+//    @Null(message = "添加品牌信息品牌ID必须为空",groups = {AddGroupsInterface.class})
     @TableId
     private Long brandId;
     /**
@@ -57,7 +57,8 @@ public class BrandEntity implements Serializable {
      * 检索首字母
      */
     @NotBlank(message = "检索首字母不能为空")
-    @Pattern(regexp = "/^[a-zA-Z]$/", message = "检索首字母必须是单个的字母")
+//   复制之后的代码可能自己加斜杆，需要注意
+    @Pattern(regexp = "^[a-zA-Z]$", message = "检索首字母必须是单个的字母")
     private String firstLetter;
     /**
      * 排序

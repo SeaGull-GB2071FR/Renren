@@ -27,6 +27,9 @@ public class CategoryBrandRelationController {
     @Autowired
     private CategoryBrandRelationService categoryBrandRelationService;
 
+    // todo 品牌和分类关联
+    //    /product/categorybrandrelation/catelog/list
+
 
 
     /**

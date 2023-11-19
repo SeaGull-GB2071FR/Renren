@@ -95,4 +95,17 @@ public class AttrController {
         return R.ok();
     }
 
+    // /{type}/list/{catId}
+    /**
+     * 列表  获取属性信息  base/sale 规格参数/销售属性
+     */
+    @RequestMapping("/{type}/list/{cateId}")
+    public R baseList(@RequestParam Map<String, Object> params,
+                      @PathVariable("type") String type,
+                      @PathVariable("cateId") Long cateId){
+        PageUtils page = attrService.queryPageDetail(params,type,cateId);
+
+        return R.ok().put("page", page);
+    }
+
 }

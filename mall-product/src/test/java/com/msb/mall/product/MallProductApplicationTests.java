@@ -5,6 +5,7 @@ import com.aliyun.oss.OSSClient;
 import com.msb.mall.product.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.FileInputStream;

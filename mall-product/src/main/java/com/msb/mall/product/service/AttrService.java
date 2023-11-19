@@ -34,5 +34,7 @@ public interface AttrService extends IService<AttrEntity> {
     AttrResponseVo getAttrInfo(Long attrId);
 
     void updateBaseAttr(AttrVo attr);
-    }
+
+    PageUtils queryPageDetail(Map<String, Object> params, String type, Long cateId);
+}
 

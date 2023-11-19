@@ -138,6 +138,62 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         }
     }
 
+    /**
+     * 获取详情列表
+     *
+     * @param params
+     * @param cateId
+     * @return
+     */
+    @Override
+    public PageUtils queryPageDetail(Map<String, Object> params, String type, Long cateId) {
+        QueryWrapper<AttrEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("attr_type", "base".equalsIgnoreCase(type) ? 1 : 0);
+        // 1.根据类别编号查询
+        if (cateId != 0) {
+            wrapper.eq("catelog_id", cateId);
+        }
+        // 2.key模糊查询
+        String key = (String) params.get("key");
+        if (!StringUtils.isEmpty(key)) {
+            wrapper.and((w) -> {
+                w.eq("attr_id", key).like("attr_name", key);
+            });
+        }
+        // 3.分页查询
+        IPage<AttrEntity> page = this.page(
+                new Query<AttrEntity>().getPage(params),
+                wrapper
+        );
+        PageUtils pageUtils = new PageUtils(page);
+        // 4. 关联查询出类别名称和属性组名称
+        List<AttrEntity> records = page.getRecords();
+        List<AttrResponseVo> list = records.stream().map((m) -> {
+                    AttrResponseVo responseVo = new AttrResponseVo();
+                    BeanUtils.copyProperties(m, responseVo);
+                    // 每一条规格对应的类别
+                    CategoryEntity categoryEntity = categoryService.getById(m.getCatelogId());
+                    if (categoryEntity.getName() != null)
+                        responseVo.setCatelogName(categoryEntity.getName());
+                    if ("base".equals(type)) {
+                        // 每一条规格对应的属性组
+                        AttrAttrgroupRelationEntity aare = attrAttrgroupRelationService.getOne(new QueryWrapper<AttrAttrgroupRelationEntity>()
+                                .eq("attr_id", m.getAttrId())
+                        );
+                        if (aare != null && aare.getAttrGroupId() != null) {
+                            AttrGroupEntity age = attrGroupDao.selectById(aare.getAttrGroupId());
+                            if (age.getAttrGroupName() != null)
+                                responseVo.setGroupName(age.getAttrGroupName());
+                        }
+                    }
+
+                    return responseVo;
+                }
+        ).collect(Collectors.toList());
+        pageUtils.setList(list);
+        return pageUtils;
+    }
+
 
     /**
      * 根据属性组编号查询对应的基本信息
@@ -172,6 +228,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     /**
      * 查询没有被关联的属性
+     *
      * @param params
      * @param attrgroupId
      * @return
@@ -235,7 +292,6 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             attrAttrgroupRelationService.save(attrAttrgroupRelationEntity);
         }
     }
-
 
 
     // todo 还没看懂

@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 // 指定Mapper接口对应的路径
 @MapperScan("com.msb.mall.product.dao")
 @ComponentScan(basePackages = "com.msb")
-@CrossOrigin(origins = "http://localhost:8001")
-
 public class MallProductApplication {
 
     public static void main(String[] args) {
