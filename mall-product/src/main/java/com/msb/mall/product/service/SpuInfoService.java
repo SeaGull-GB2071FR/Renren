@@ -1,10 +1,12 @@
 package com.msb.mall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.msb.common.dto.es.SkuESModel;
 import com.msb.common.utils.PageUtils;
 import com.msb.mall.product.entity.SpuInfoEntity;
 import com.msb.mall.product.vo.SpuInfoVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,5 +22,8 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
 
     void saveSpuInfo(SpuInfoVo spuInfoVo);
 
+    void Up(Long spuId);
+
+    List<SkuESModel.Attrs> getAttrsModel(Long spuId);
 }
 

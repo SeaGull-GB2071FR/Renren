@@ -1,0 +1,29 @@
+# 数据库的连接新
+spring:
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.44.135:8848
+    alicloud:
+      access-key: LTAI5tQc3FY99jkxVC6nVUAT
+      secret-key: SpyvsWAFPkxtozIYTDdT7cMazjhGKE
+      oss:
+        endpoint: oss-cn-guangzhou.aliyuncs.com
+  application:
+    name: mall-search
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto # 主键自增
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+server:
+  port: 8060

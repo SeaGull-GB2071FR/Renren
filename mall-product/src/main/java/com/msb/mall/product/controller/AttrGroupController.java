@@ -40,7 +40,7 @@ public class AttrGroupController {
     private CategoryService categoryService;
 
     @Autowired
-    private AttrAttrgroupRelationService relationService;
+    private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
 
     /**
@@ -89,7 +89,7 @@ public class AttrGroupController {
      */
     @PostMapping("/attr/relation")
     public R saveBatch(@RequestBody List<AttrGroupRelationVo> vos) {
-        relationService.saveBatch(vos);
+        attrAttrgroupRelationService.saveBatch(vos);
         return R.ok();
     }
 

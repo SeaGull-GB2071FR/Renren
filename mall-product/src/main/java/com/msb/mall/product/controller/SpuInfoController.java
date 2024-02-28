@@ -3,12 +3,9 @@ package com.msb.mall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.msb.mall.product.vo.SpuInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.msb.mall.product.entity.SpuInfoEntity;
 import com.msb.mall.product.service.SpuInfoService;
@@ -58,8 +55,8 @@ public class SpuInfoController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:spuinfo:save")
-    public R save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
+    public R save(@RequestBody SpuInfoVo spuInfoVo){
+		spuInfoService.saveSpuInfo(spuInfoVo);
 
         return R.ok();
     }
@@ -83,6 +80,19 @@ public class SpuInfoController {
     public R delete(@RequestBody Long[] ids){
 		spuInfoService.removeByIds(Arrays.asList(ids));
 
+        return R.ok();
+    }
+
+    /**
+     * 1.根据SpuID查询出相关的信息
+     *   封装到对应的对象中
+     * 2.将封装的数据存储到ElasticSearch中--》调用mall-search的远程接口
+     * 3.更新SpuID对应的状态--》上架
+     * 商品上架-----上架的商品需保存到es
+     */
+    @PostMapping("/{spuId}/up")
+    public R spuUp(@PathVariable("spuId") Long spuId){
+        spuInfoService.Up(spuId);
         return R.ok();
     }
 
