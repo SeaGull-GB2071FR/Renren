@@ -708,14 +708,7 @@ function _init() {
 
 })(jQuery);
 
-/*
- * TODO LIST CUSTOM PLUGIN
- * -----------------------
- * This plugin depends on iCheck plugin for checkbox and radio inputs
- *
- * @type plugin
- * @usage $("#todo-widget").todolist( options );
- */
+
 (function ($) {
 
   'use strict';

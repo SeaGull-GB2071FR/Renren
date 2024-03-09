@@ -36,7 +36,7 @@ public interface CategoryService extends IService<CategoryEntity> {
      * 查询出所有的商品大类(一级分类)
      * @return
      */
-    public List<CategoryEntity> getLeve1Category();
+    List<CategoryEntity> getLeve1Category();
 
     Map<String, List<Catalog2VO>> getCatelog2JSON();
 }

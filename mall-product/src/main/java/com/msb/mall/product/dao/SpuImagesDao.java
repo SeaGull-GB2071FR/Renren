@@ -1,8 +1,11 @@
 package com.msb.mall.product.dao;
 
+import com.msb.mall.product.entity.SkuImagesEntity;
 import com.msb.mall.product.entity.SpuImagesEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * spu图片
@@ -13,5 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SpuImagesDao extends BaseMapper<SpuImagesEntity> {
+
+    List<SkuImagesEntity> getImagesBySkuId(Long skuId);
 	
 }

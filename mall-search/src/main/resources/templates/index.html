@@ -817,7 +817,7 @@
                         <ul>
                             <li th:each="catalog:${result.catalogs}">
                                 <a th:href="${'javascript:searchProduct(&quot;catalog3Id&quot;,'+catalog.catalogId+')'}"
-                                    th:text="${catalog.catalogName}">
+                                   th:text="${catalog.catalogName}">
                                 </a></li>
                         </ul>
                     </div>
@@ -1023,7 +1023,7 @@
                             >
                             - <input id="skuPriceTo" type="number"
                                      th:value="${#strings.isEmpty(param.skuPrice)?'':#strings.substringAfter(param.skuPrice,'_')}"
-                            >
+                        >
                             <input type="button" value="搜索" id="skuPriceSearchBtn">
                         </div>
                         <div class="filter_top_right">
@@ -1871,16 +1871,16 @@
     });
     //显示隐藏
     var $li = $(".JD_nav_logo>div:gt(3)").hide();
-      $('.JD_show span').click(function(){
-          if($li.is(':hidden')){
-              $li.show();
-              $(this).css({width:"86px"}).text('收起 ^');
-          }else{
-              $li.hide();
-              $('.JD_show span').css({width:"291px"}).text('更多选项（ CPU核数、网络、机身颜色 等）');
-          }
-          return false;
-      });
+    $('.JD_show span').click(function(){
+        if($li.is(':hidden')){
+            $li.show();
+            $(this).css({width:"86px"}).text('收起 ^');
+        }else{
+            $li.hide();
+            $('.JD_show span').css({width:"291px"}).text('更多选项（ CPU核数、网络、机身颜色 等）');
+        }
+        return false;
+    });
 
 
 

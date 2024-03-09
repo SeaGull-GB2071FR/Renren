@@ -4,13 +4,24 @@ package com.msb.mall.product;
 import com.aliyun.oss.OSSClient;
 import com.msb.mall.product.service.CategoryService;
 import org.junit.jupiter.api.Test;
+import org.redisson.Redisson;
+import org.redisson.api.RBucket;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 
 @SpringBootTest
@@ -20,7 +31,23 @@ public class MallProductApplicationTests {
     private CategoryService categoryService;
 
     @Autowired
+    private RedissonClient redissonClient;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
     private OSSClient ossClient;
+
+    @Test
+    public void testStringRedisTemplate() {
+        // 获取操作String类型的Options对象
+        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+        // 插入数据
+        ops.set("name","bobo"+ UUID.randomUUID());
+        // 获取存储的信息
+        System.out.println("刚刚保存的值："+ops.get("name"));
+    }
 
     @Test
     public void testUploadFile() throws FileNotFoundException {
@@ -42,5 +69,26 @@ public class MallProductApplicationTests {
         ossClient.shutdown();
         System.out.println("长传图片成功...");
     }
+
+//    @Test
+//    public void TestRedisson() {
+//        Config config = new Config();
+//        //config.useSingleServer().setAddress("redis://127.0.0.1:6379").setPassword("123456");
+//        config.useSingleServer().setAddress("redis://192.168.44.135:6379");
+//        RedissonClient redissonClient = Redisson.create(config);
+//
+//        RBucket<Object> bucket = redissonClient.getBucket("name");
+//        //设置值为victory，过期时间为3小时
+//        bucket.set("victory",30, TimeUnit.HOURS);
+//        Object value = bucket.get();
+//        System.out.println(value);
+//        //通过key取value值
+//        Object name = redissonClient.getBucket("name").get();
+//        System.out.println(name);
+//
+//        //====================关闭客户端====================
+//        redissonClient.shutdown();
+//
+//    }
 
 }
