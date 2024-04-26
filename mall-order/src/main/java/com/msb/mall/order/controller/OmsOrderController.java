@@ -4,9 +4,8 @@ import java.util.Arrays;
 import java.util.Map;
 
 
-import com.msb.mall.order.fegin.ProductService;
+import com.msb.mall.order.feign.ProductFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,12 +31,12 @@ public class OmsOrderController {
     private OmsOrderService omsOrderService;
 
     @Autowired
-    private ProductService productService;
+    private ProductFeignService productFeignService;
 
     @GetMapping("/products")
     public R queryProduct(){
         // OpenFegin 远程调用服务
-        return R.ok().put("products",productService.queryAllBrand());
+        return R.ok().put("products", productFeignService.queryAllBrand());
     }
 
     /**

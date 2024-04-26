@@ -22,7 +22,7 @@ public interface CategoryService extends IService<CategoryEntity> {
     /**
      * 查询所有的类别数据，然后将数据封装为树形结构，便于前端使用
      */
-    public List<CategoryEntity> queryPageWithTree(Map<String, Object> params);
+     List<CategoryEntity> queryPageWithTree(Map<String, Object> params);
 
     /**
      * 逻辑批量删除操作

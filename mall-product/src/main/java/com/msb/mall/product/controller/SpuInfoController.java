@@ -1,8 +1,10 @@
 package com.msb.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.msb.mall.product.vo.OrderItemSpuInfoVO;
 import com.msb.mall.product.vo.SpuInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,11 @@ import com.msb.common.utils.R;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+    @RequestMapping("/getOrderItemSpuInfoBySpuId/{spuIds}")
+    public List<OrderItemSpuInfoVO> getOrderItemSpuInfoBySpuId(@PathVariable("spuIds") Long[] spuIds){
+        return spuInfoService.getOrderItemSpuInfoBySpuId(spuIds);
+    }
 
     /**
      * 列表

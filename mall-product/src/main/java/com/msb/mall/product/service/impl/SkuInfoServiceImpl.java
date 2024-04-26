@@ -5,6 +5,7 @@ import com.msb.common.utils.R;
 import com.msb.mall.product.dao.AttrGroupDao;
 import com.msb.mall.product.entity.SkuImagesEntity;
 import com.msb.mall.product.entity.SpuInfoDescEntity;
+import com.msb.mall.product.feign.SeckillFeignService;
 import com.msb.mall.product.service.*;
 import com.msb.mall.product.vo.SeckillVo;
 import com.msb.mall.product.vo.SkuItemSaleAttrVo;
@@ -51,6 +52,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     @Autowired
     private ThreadPoolExecutor myThreadPoolExecutor;
+
+    @Autowired
+    private SeckillFeignService seckillFeignService;
 
 
     /**
@@ -156,15 +160,15 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
         }, myThreadPoolExecutor);
 
-//        CompletableFuture<Void> SeckillFuture = CompletableFuture.runAsync(() -> {
-//            // 秒杀信息
-//            R r = seckillFeignService.getSeckillSessionBySkuId(skuId);
-//            if (r.getCode() == 0) {
-//                String seckillInfo = JSON.toJSONString(r.get("seckillInfo"));
-//                SeckillVo seckillVo = JSON.parseObject(seckillInfo, SeckillVo.class);
-//                spuItemVO.setSeckillVO(seckillVo);
-//            }
-//        }, myThreadPoolExecutor);
+        CompletableFuture<Void> SeckillFuture = CompletableFuture.runAsync(() -> {
+            // 秒杀信息
+            R r = seckillFeignService.getSeckillSessionBySkuId(skuId);
+            if (r.getCode() == 0) {
+                String seckillInfo = JSON.toJSONString(r.get("seckillInfo"));
+                SeckillVo seckillVo = JSON.parseObject(seckillInfo, SeckillVo.class);
+                vo.setSeckillVO(seckillVo);
+            }
+        }, myThreadPoolExecutor);
 
         CompletableFuture.allOf(imgsFuture, descFuture, baseAttrFuture).get();
         return vo;

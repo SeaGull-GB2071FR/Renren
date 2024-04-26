@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.cloud.alicloud.sms.host",
+      "type": "java.lang.String",
+      "description": "Description for spring.cloud.alicloud.sms.host."
+  }
+] }

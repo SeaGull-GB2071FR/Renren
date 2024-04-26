@@ -1,14 +1,11 @@
 package com.msb.mall.member.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.msb.mall.member.entity.UmsMemberReceiveAddressEntity;
 import com.msb.mall.member.service.UmsMemberReceiveAddressService;
@@ -30,6 +27,18 @@ public class UmsMemberReceiveAddressController {
     @Autowired
     private UmsMemberReceiveAddressService umsMemberReceiveAddressService;
 
+    @RequestMapping("/getAddressById/{id}")
+    public UmsMemberReceiveAddressEntity getAddressById(@PathVariable("id") Long id) {
+
+        UmsMemberReceiveAddressEntity memberReceiveAddress = umsMemberReceiveAddressService.getById(id);
+        return memberReceiveAddress;
+    }
+
+
+    @GetMapping("/{memberId}/address")
+    public List<UmsMemberReceiveAddressEntity> address(@PathVariable("memberId") Long memberId){
+        return  umsMemberReceiveAddressService.getAddress(memberId);
+    }
     /**
      * 列表
      */

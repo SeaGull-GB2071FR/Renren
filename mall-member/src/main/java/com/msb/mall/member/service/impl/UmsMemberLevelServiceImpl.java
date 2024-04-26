@@ -1,5 +1,6 @@
 package com.msb.mall.member.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,6 +16,8 @@ import com.msb.mall.member.service.UmsMemberLevelService;
 
 @Service("umsMemberLevelService")
 public class UmsMemberLevelServiceImpl extends ServiceImpl<UmsMemberLevelDao, UmsMemberLevelEntity> implements UmsMemberLevelService {
+    @Autowired
+    private UmsMemberLevelDao umsMemberLevelDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -24,6 +27,12 @@ public class UmsMemberLevelServiceImpl extends ServiceImpl<UmsMemberLevelDao, Um
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public UmsMemberLevelEntity queryMemberLevelDefault() {
+        UmsMemberLevelEntity level = umsMemberLevelDao.queryMemberLevelDefault();
+        return level;
     }
 
 }

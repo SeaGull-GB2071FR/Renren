@@ -93,4 +93,8 @@ public class UmsMemberEntity implements Serializable {
 	 */
 	private Date createTime;
 
+	private String socialUid;
+	private String accessToken;
+	private long expiresId;
+
 }

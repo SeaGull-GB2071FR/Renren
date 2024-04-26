@@ -20,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -288,6 +289,30 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     return attr;
                 }).collect(Collectors.toList());
         return attrs;
+    }
+
+    @Override
+    public List<OrderItemSpuInfoVO> getOrderItemSpuInfoBySpuId(Long[] spuIds) {
+        List<OrderItemSpuInfoVO> list = new ArrayList<>();
+        for (Long spuId : spuIds) {
+            OrderItemSpuInfoVO vo = new OrderItemSpuInfoVO();
+            SpuInfoEntity spuInfoEntity = this.getById(spuId);
+            vo.setId(spuId);
+            vo.setSpuName(spuInfoEntity.getSpuName());
+            vo.setBrandId(spuInfoEntity.getBrandId());
+            vo.setCatalogId(spuInfoEntity.getCatalogId());
+            // 根据品牌编号查询品牌信息
+            BrandEntity brand = brandService.getById(spuInfoEntity.getBrandId());
+            vo.setBrandName(brand.getName());
+            CategoryEntity category = categoryService.getById(spuInfoEntity.getCatalogId());
+            vo.setCatalogName(category.getName());
+            // 获取SPU的图片
+            SpuInfoDescEntity descEntity = spuInfoDescService.getById(spuId);
+            vo.setImg(descEntity.getDecript());
+            list.add(vo);
+        }
+        // 根据SPUID查询出相关的信息
+        return list;
     }
 
     /**
